@@ -1,0 +1,18 @@
+<h2>Quiz <%= quiz.name %></h2>
+
+<h3>Questions</h3>
+
+<p><a href='/quizzes/<%= quiz.id %>/questions/new'>Click here to add a question</a></p>
+
+<ol>
+  <% debugger %>
+  <% quiz.questions.forEach( function(question) { %>
+    <li>
+      Question: <%= question.name %>
+    </li>
+  <% }); %>
+
+  <% if (quiz.questions.length === 0) { %>
+    <li><em>No questions yet.</em></li>
+  <% } %>
+</ol>

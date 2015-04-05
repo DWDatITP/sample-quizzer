@@ -1,0 +1,17 @@
+<h1>Welcome to the Quiz Maker</h1>
+
+<p>Click <a href='/quizzes/new'>here to make a new quiz</a>.</p>
+
+<h3>Choose a quiz:</h3>
+
+<ul>
+  <% quizzes.forEach( function(quiz) { %>
+    <li>
+      <a href='/quizzes/<%= quiz.id %>'><%= quiz.name %></a>
+    </li>
+  <% }); %>
+
+  <% if (quizzes.length === 0) { %>
+    <li><em>No quizzes yet</em></li>
+  <% } %>
+</ul>

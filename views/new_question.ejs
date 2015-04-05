@@ -1,0 +1,28 @@
+<h1>Quiz: <%= quiz.name %></h1>
+
+<h3>Choose a question type below:</h3>
+
+<h4>Fill-in-the-blank question:</h4>
+<form action="/quizzes/<%= quiz.id %>/questions" method="post">
+  <input type="hidden" name="type" id="" value="fill_in" />
+  Name: <input type="name" name="name" id="" value="" /><br>
+  Text description:
+  <textarea name="description" id="" rows="6" cols="40"></textarea>
+  <br>
+
+  Correct answer: <input type="text" name="answer" id="" value="" /><br>
+
+  <button type="submit">Save</button>
+</form>
+
+<h4>Multiple choice question:</h4>
+<form action="/quizzes/<%= quiz.id %>/questions" method="post">
+  Name: <input type="name" name="name" id="" value="" /><br>
+  Text description:
+</form>
+
+<h4>True or false question</h4>
+<form action="/quizzes/<%= quiz.id %>/questions" method="post">
+  Name: <input type="name" name="name" id="" value="" /><br>
+  Text description:
+</form>
