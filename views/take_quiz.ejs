@@ -1,0 +1,15 @@
+<h2>Quiz <%= quiz.name %></h2>
+
+<h3>Questions</h3>
+
+<ol>
+  <% quiz.questions.forEach( function(question) { %>
+    <li>
+      <% include individual_question %>
+    </li>
+  <% }); %>
+
+  <% if (quiz.questions.length === 0) { %>
+    <li><em>No questions yet.</em></li>
+  <% } %>
+</ol>

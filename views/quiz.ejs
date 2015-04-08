@@ -4,11 +4,16 @@
 
 <p><a href='/quizzes/<%= quiz.id %>/questions/new'>Click here to add a question</a></p>
 
+<form action="/quizzes/<%= quiz.id %>/complete" method="post">
+  <button type="submit">Mark this quiz complete</button>
+</form>
+
+<p><a href="/quizzes/<%= quiz.id %>/take">Take this quiz</a></p>
+
 <ol>
-  <% debugger %>
   <% quiz.questions.forEach( function(question) { %>
     <li>
-      Question: <%= question.name %>
+      <%= question.name %> (<%= question.type %>)
     </li>
   <% }); %>
 
