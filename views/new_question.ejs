@@ -4,38 +4,38 @@
 
 <h4>Multiple choice question:</h4>
 <form action="/quizzes/<%= quiz.id %>/questions" method="post">
-  <input type="hidden" name="type" id="" value="multiple" />
-  Name: <input type="name" name="name" id="" value="" /><br>
+  <input type="hidden" name="type" id="" value="multiple">
+  Name: <input type="name" name="name" id="" value=""><br>
   Text description:
   <textarea name="description" id="" rows="6" cols="40"></textarea>
 
   <br>
-  Choice1: <input type="name" name="choice1" id="" value="" /><br>
-  Choice2: <input type="name" name="choice2" id="" value="" />
-  Choice3: <input type="name" name="choice3" id="" value="" />
-  Choice4: <input type="name" name="choice4" id="" value="" />
+  Choice1: <input type="name" name="choice1" id="" value=""><br>
+  Choice2: <input type="name" name="choice2" id="" value="">
+  Choice3: <input type="name" name="choice3" id="" value="">
+  Choice4: <input type="name" name="choice4" id="" value="">
   <br>
 
   Correct answer:
-  1: <input type="radio" name="answer" id="" value="1" /><br>
-  2: <input type="radio" name="answer" id="" value="2" /><br>
-  3: <input type="radio" name="answer" id="" value="3" /><br>
-  4: <input type="radio" name="answer" id="" value="4" /><br>
+  1: <input type="radio" name="answer" id="" value="1"><br>
+  2: <input type="radio" name="answer" id="" value="2"><br>
+  3: <input type="radio" name="answer" id="" value="3"><br>
+  4: <input type="radio" name="answer" id="" value="4"><br>
 
   <button type="submit">Save</button>
 </form>
 
 <h4>True or false question</h4>
 <form action="/quizzes/<%= quiz.id %>/questions" method="post">
-  <input type="hidden" name="type" id="" value="truefalse" />
+  <input type="hidden" name="type" id="" value="truefalse">
 
-  Name: <input type="name" name="name" id="" value="" /><br>
+  Name: <input type="name" name="name" id="" value=""><br>
   Text description:
   <textarea name="description" id="" rows="6" cols="40"></textarea>
   <br>
 
-  TRUE: <input type="radio" name="answer" id="" value="true" /><br>
-  FALSE: <input type="radio" name="answer" id="" value="true" /><br>
+  TRUE: <input type="radio" name="answer" id="" value="true"><br>
+  FALSE: <input type="radio" name="answer" id="" value="false"><br>
 
   <button type="submit">Save</button>
 </form>

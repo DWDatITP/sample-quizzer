@@ -1,0 +1,13 @@
+<h2>Quiz <%= quiz.name %></h2>
+
+<h3>Correct? <%= quizResults.correct ? 'YES!' : 'no'; %></h3>
+
+<% if (!quizResults.correct) { %>
+  <p>Message: <%= quizResults.message %>.</p>
+  <a href='/quizzes/<%= quiz.id %>/take'>Click here to try again</a>.
+<% } else { %>
+
+  <% if (quiz.successMessage) { %>
+    <p><%= quiz.successMessage %></p>
+  <% } %>
+<% } %>

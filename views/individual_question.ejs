@@ -2,6 +2,46 @@
   <h3><%= question.name %></h3>
   <h4><%= question.description %></h4>
 
+  <% var questionInputName = 'question-' + question.number; %>
   <% if (question.type === 'truefalse') { %>
+    TRUE: <input type="radio" name="<%=questionInputName%>" value="true"><br>
+    FALSE: <input type="radio" name="<%=questionInputName%>" value="false"><br>
+  <% } %>
+
+  <% if (question.type === 'multiple') { %>
+  <div class='multiple-choices'>
+    <div class='choice choice1'>
+      <h5>Choice 1</h5>
+      <p><%= question.choice1 %></p>
+      <p>
+        Select choice 1:
+        <input type='radio' name="<%=questionInputName%>" value="1">
+      </p>
+    </div>
+    <div class='choice choice2'>
+      <h5>Choice 2</h5>
+      <p><%= question.choice2 %></p>
+      <p>
+        Select choice 2:
+        <input type='radio' name="<%=questionInputName%>" value="2">
+      </p>
+    </div>
+    <div class='choice choice3'>
+      <h5>Choice 3</h5>
+      <p><%= question.choice3 %></p>
+      <p>
+        Select choice 3:
+        <input type='radio' name="<%=questionInputName%>" value="3">
+      </p>
+    </div>
+    <div class='choice choice4'>
+      <h5>Choice 4</h5>
+      <p><%= question.choice4 %></p>
+      <p>
+        Select choice 4:
+        <input type='radio' name="<%=questionInputName%>" value="4">
+      </p>
+    </div>
+  </div>
   <% } %>
 </div>

@@ -2,6 +2,7 @@
 
 <h3>Questions</h3>
 
+<form action='/quizzes/<%= quiz.id %>/take' method='post'>
 <ol>
   <% quiz.questions.forEach( function(question) { %>
     <li>
@@ -13,3 +14,9 @@
     <li><em>No questions yet.</em></li>
   <% } %>
 </ol>
+
+<div class='submit'>
+  <button type='submit'>Submit answers</button>
+</div>
+
+</form>

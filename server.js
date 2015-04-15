@@ -41,6 +41,7 @@ var questionSchema = new mongoose.Schema({
   name: String,
   description: String,
   type: String,
+  number: Number,
 
   // for multiple-choice:
   choice1: String,
@@ -53,12 +54,14 @@ var questionSchema = new mongoose.Schema({
 var quizSchema = new mongoose.Schema({
   name: String,
   isComplete: Boolean,
+  attempts: Number,
+  successes: Number,
+  successMessage: String,
   questions: [questionSchema]
 });
 var Quiz = mongoose.model('quizzes', quizSchema);
 
 app.get('/', function(req, res){
-  console.log('req.session:',req.session);
   Quiz.find({}, function(err, quizzes){
     res.render('index', {quizzes: quizzes});
   });
@@ -79,12 +82,56 @@ app.get('/quizzes/:quiz_id', function(req, res){
   });
 });
 
+// view quiz questions
 app.get('/quizzes/:quiz_id/take', function(req, res){
   var quizId = req.params.quiz_id;
   Quiz.findById(quizId, function(err, quiz) {
     res.render('take_quiz', {quiz:quiz});
   });
 });
+
+// submit answers to the quiz
+app.post('/quizzes/:quiz_id/take', function(req, res){
+  var quizId = req.params.quiz_id;
+  Quiz.findById(quizId, function(err, quiz) {
+    var quizResults = gradeQuiz(quiz, req.body);
+
+    quiz.attempts = quiz.attempts + 1;
+    if (quizResults.correct) {
+      quiz.successes = quiz.successes + 1;
+    }
+
+    quiz.save(function(err) {
+      if (err) { res.send(err); }
+      res.render('quiz_results', {quiz:quiz, quizResults:quizResults});
+    });
+  });
+});
+
+function gradeQuiz(quiz, data){
+  console.log('quiz data',data);
+  var resultMessage = '';
+  var correct = true;
+
+  quiz.questions.forEach(function(question){
+    if (!correct) { return; }
+
+    var correctAnswer = question.answer;
+    var userAnswer = data['question-' + question.number];
+
+    if (!userAnswer) {
+      resultMessage = 'Missing an answer for: ' + question.number;
+      correct = false;
+    } else if (userAnswer !== correctAnswer) {
+      console.log('!==',userAnswer,correctAnswer);
+      resultMessage = 'Wrong answer for: ' + question.number;
+      correct = false;
+    }
+  });
+
+  return {message: resultMessage, correct: correct};
+}
+
 
 // mark the quiz complete
 app.post('/quizzes/:quiz_id/complete', function(req,res){
@@ -96,9 +143,6 @@ app.post('/quizzes/:quiz_id/complete', function(req,res){
       res.redirect('/quizzes/' + quiz.id);
     });
   });
-});
-
-app.post('/quizzes/:quiz_id/answer', function(req,res){
 });
 
 app.get('/quizzes/:quiz_id/questions/new', function(req, res){
@@ -116,20 +160,36 @@ app.post('/quizzes/:quiz_id/questions', function(req, res){
       name: req.body.name,
       type: req.body.type,
       description: req.body.description,
-      answer: req.body.answer
+      answer: req.body.answer,
+      number: quiz.questions.length + 1,
+
+      // only for multiple-choice questions
+      choice1: req.body.choice1,
+      choice2: req.body.choice2,
+      choice3: req.body.choice3,
+      choice4: req.body.choice4
     };
 
     quiz.questions.push(question);
 
     quiz.save(function(err){
+      if (err) { res.send(err); }
       res.redirect('/quizzes/' + quiz.id);
     });
   });
 });
 
+// create a new quiz
 app.post('/quizzes', function(req,res){
-  var quiz = new Quiz({isComplete: false, name: req.body.name});
+  var quiz = new Quiz({
+    isComplete: false,
+    name: req.body.name,
+    successMessage: req.body.successMessage,
+    attempts: 0,
+    successes: 0
+  });
   quiz.save( function(err) {
+    if (err) { res.send(err); }
     res.redirect('/quizzes/' + quiz.id);
   });
 });
