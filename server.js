@@ -37,6 +37,8 @@ app.use(session({
   resave: true
 }));
 
+app.use(express.static('public'));
+
 var questionSchema = new mongoose.Schema({
   name: String,
   description: String,
